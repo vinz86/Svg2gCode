@@ -8,7 +8,7 @@ import { getRepresentation } from './getRepresentation.js';
 import { svg2gcode } from './svg2gcode.js';
 import SVGO from 'svgo';
 
-class Converter {
+export class Converter {
     constructor(Settings) {
         const defaultSettings = {
             zOffset: 3,
@@ -78,4 +78,4 @@ class Converter {
     }
 }
 
-export { Converter }
+export default Converter; 
