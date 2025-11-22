@@ -1,4 +1,4 @@
-import { getAttribute } from "./xmlFunctions";
+import { getAttribute } from "./xmlFunctions.js";
 import { PathParser } from './pathParser.js';
 const config = {
     tolerance: 0.01
