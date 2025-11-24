@@ -87,7 +87,7 @@ export function svg2gcode(svg, settings) {
     const height = svg.viewBox[3];
 
     const getBothEndPoints = (path) => {
-        if (!path) return;
+        if (!path || path?.length < 2) return null;  // <-- guard
         const adjustX = (x) => ( settings.quadrant === 2 || settings.quadrant === 3 ) ? x - width : x;
         const adjustY = (y) => ( settings.quadrant === 3 || settings.quadrant === 4 ) ? y - height : y;
 
@@ -120,7 +120,12 @@ export function svg2gcode(svg, settings) {
         let path = paths[i];
         const nextPath = paths[i + 1] || null;
 
-        const { startX, startY, finalX, finalY } = getBothEndPoints(path);
+        const ends = getBothEndPoints(path);
+        if (!ends) {
+            // path vuoto / degenerato -> lo scarto
+            return null;
+        }
+        const { startX, startY, endX, endY } = ends;
         const startOffsetX = Number(parseFloat(startX + settings.xOffset).toFixed(3));
         const startOffsetY = Number(parseFloat(startY + settings.yOffset).toFixed(3));
 
